@@ -11,3 +11,11 @@ This is a Cucumber for Dart.
 > This is new, fresh, and totally rough on the edges.
 > A lot of things don't work (yet).
 > Actually most things don't work (yet).
+
+Cucumber has three types of implementations:
+* Full - all components adhere to the Cucumber architecture and are implemented in Dart
+* Partial - Some components are implemented in Dart
+* Custom - Something that looks like Cucumber from the outside but isn't really following the Cucumber way
+
+Currently, `cucumber-dart` is _Custom_.
+But the idea is to turn Cucumber-Dart into Full implementation.
