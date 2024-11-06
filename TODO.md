@@ -4,7 +4,7 @@
 * [x] Scenarios
 * [x] Steps (Given, When, Then, And, But)
 * [ ] Backgrounds
-* [ ] Rules
+* [x] Rules
 * [ ] Step arguments
 * [ ] Regular Expressions
 * [ ] Multiline String arguments

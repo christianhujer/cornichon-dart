@@ -16,6 +16,8 @@ abstract class Executable {
   void run();
 }
 
+abstract class FeatureContent extends Executable {}
+
 abstract class ContainsExecutables<T extends Executable> extends Executable {
   List<T> executables = [];
   void run() {
@@ -23,7 +25,7 @@ abstract class ContainsExecutables<T extends Executable> extends Executable {
   }
 }
 
-class Feature extends ContainsExecutables<Scenario> {
+class Feature extends ContainsExecutables<FeatureContent> {
   String title;
 
   Feature(this.title);
@@ -56,7 +58,13 @@ class Feature extends ContainsExecutables<Scenario> {
   }
 }
 
-class Scenario extends ContainsExecutables<Step> {
+class Rule extends ContainsExecutables<Scenario> implements FeatureContent {
+  String title;
+
+  Rule(this.title);
+}
+
+class Scenario extends ContainsExecutables<Step> implements FeatureContent {
   String title;
 
   Scenario(this.title);
