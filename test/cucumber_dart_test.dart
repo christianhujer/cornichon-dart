@@ -29,4 +29,9 @@ void main() {
     Feature.runFeatures(features);
     expect(stepsExecuted, ['given', 'when', 'then', 'and', 'but', 'given', 'when', 'then', 'and', 'but']);
   });
+
+  test('throws an exception with a good message for an undefined step', () {
+    var features = Feature.parse('features/UndefinedStep.feature');
+    expect(() => Feature.runFeatures(features), throwsA(isA<UndefinedStepException>()));
+  });
 }

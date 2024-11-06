@@ -46,7 +46,7 @@ class Feature extends ContainsExecutables<FeatureContent> {
         const stepPrefixes = ["Given", "When", "Then", "And", "But"];
         stepPrefixes.forEach((stepPrefix) {
           if (line.startsWith(stepPrefix)) {
-            currentScenario!.executables.add(Step(line.substring(stepPrefix.length).trim()));
+            currentScenario!.executables.add(Step(stepPrefix, line.substring(stepPrefix.length).trim()));
           }
         });
       }
@@ -71,11 +71,37 @@ class Scenario extends ContainsExecutables<Step> implements FeatureContent {
 }
 
 class Step extends Executable {
+  String prefix;
   String text;
-  Step(this.text);
+  Step(this.prefix, this.text);
   void run() {
     var stepFunction = stepDefinitions[text];
-    if (stepFunction == null) throw Exception("Undefined step: ${text}");
+    if (stepFunction == null) throw UndefinedStepException(this);
     stepFunction();
   }
+}
+
+class UndefinedStepException implements Exception {
+  final Step step;
+
+  UndefinedStepException(this.step);
+
+  @override
+  String toString() =>
+  """
+  Undefined step: ${step.text}.
+  You can add this step with the following code:
+  ${step.prefix.toLowerCase()}("${step.text}", {
+    throw PendingException();
+  });
+  """;
+}
+
+class PendingException implements Exception {
+  final String message;
+
+  PendingException([this.message = '']);
+
+  @override
+  String toString() => message.isEmpty ? 'PendingException' : 'PendingException: $message';
 }
