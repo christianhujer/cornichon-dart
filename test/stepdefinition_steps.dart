@@ -1,4 +1,4 @@
-import 'package:cucumber_dart/cucumber_dart.dart';
+import 'package:cornichon_dart/cornichon.dart';
 
 List<String> stepsExecuted = [];
 
