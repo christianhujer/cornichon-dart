@@ -1,5 +1,6 @@
-# TODO for 1.0.0
+# TODO
 
+## Custom
 * [x] Features
 * [x] Scenarios
 * [x] Steps (Given, When, Then, And, But)
@@ -14,3 +15,12 @@
 * [ ] Standalone Runner implementation
 * [ ] Dart Test-based Runner implementation using group() and test()
 * [ ] Support other languages than English
+
+## Full
+* [ ] ci-environment
+* [ ] cucumber-expressions
+* [ ] gherkin
+* [ ] html-formatter
+* [ ] messages
+* [ ] tag-expressions
+* [ ] compatibility-kit
