@@ -1,11 +1,7 @@
-# Cucumber for Dart
+# Cornichon-Dart
 
-This is a Cucumber for Dart.
-
-> [!WARNING]
-> This is NOT an official implementation of Cucumber (yet?)!
-> The name Cucumber is used in good faith and good intent to donate this project to the Cucumber team, but it is currently used without their permission.
-> I chose the name because I have the unconditional intent to donate this project to the Cucumber team.
+This is a Cornichon, a BDD-framework for Dart.
+Cornichon is a BDD-framework similar to (but not affiliated with) Cucumber.
 
 > [!WARNING]
 > This is new, fresh, and totally rough on the edges.
@@ -17,5 +13,5 @@ Cucumber has three types of implementations:
 * Partial - Some components are implemented in Dart
 * Custom - Something that looks like Cucumber from the outside but isn't really following the Cucumber way
 
-Currently, `cucumber-dart` is _Custom_.
-But the idea is to turn Cucumber-Dart into Full implementation.
+Currently, `cornichon-dart` is what from the perspective of Cucumber would be called a _Custom_ implementation.
+The idea is to turn Cornichon-Dart into a full Cucumber implementation over time.
