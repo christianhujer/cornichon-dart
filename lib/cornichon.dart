@@ -13,22 +13,25 @@ const and = defineStep;
 const but = defineStep;
 
 abstract class Executable {
+  String name;
+  Executable(this.name);
   void run();
 }
 
-abstract class FeatureContent extends Executable {}
+abstract class FeatureContent extends Executable {
+  FeatureContent(super.name);
+}
 
 abstract class ContainsExecutables<T extends Executable> extends Executable {
   List<T> executables = [];
+  ContainsExecutables(super.name);
   void run() {
     executables.forEach((executable) => executable.run());
   }
 }
 
 class Feature extends ContainsExecutables<FeatureContent> {
-  String title;
-
-  Feature(this.title);
+  Feature(super.name);
 
   static List<Feature> parse(String path) {
     List<Feature> features = [];
@@ -59,23 +62,18 @@ class Feature extends ContainsExecutables<FeatureContent> {
 }
 
 class Rule extends ContainsExecutables<Scenario> implements FeatureContent {
-  String title;
-
-  Rule(this.title);
+  Rule(super.name);
 }
 
 class Scenario extends ContainsExecutables<Step> implements FeatureContent {
-  String title;
-
-  Scenario(this.title);
+  Scenario(super.name);
 }
 
 class Step extends Executable {
   String prefix;
-  String text;
-  Step(this.prefix, this.text);
+  Step(this.prefix, super.name);
   void run() {
-    var stepFunction = stepDefinitions[text];
+    var stepFunction = stepDefinitions[name];
     if (stepFunction == null) throw UndefinedStepException(this);
     stepFunction();
   }
@@ -89,9 +87,9 @@ class UndefinedStepException implements Exception {
   @override
   String toString() =>
   """
-  Undefined step: ${step.text}.
+  Undefined step: ${step.name}.
   You can add this step with the following code:
-  ${step.prefix.toLowerCase()}("${step.text}", {
+  ${step.prefix.toLowerCase()}("${step.name}", {
     throw PendingException();
   });
   """;
