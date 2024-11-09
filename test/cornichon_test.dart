@@ -5,6 +5,7 @@ import 'stepdefinition_steps.dart';
 
 void main() {
   setUp(() {
+    executionDecorator = PlainExecutionDecorator();
     stepsExecuted = [];
   });
 

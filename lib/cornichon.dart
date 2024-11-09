@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:test/test.dart';
+
 Map<String, Function> stepDefinitions = {};
 
 void defineStep(String step, Function function) {
@@ -11,6 +13,37 @@ const when = defineStep;
 const then = defineStep;
 const and = defineStep;
 const but = defineStep;
+
+ExecutionDecorator executionDecorator = TestExecutionDecorator();
+
+abstract class ExecutionDecorator {
+  void decorateGroup(String name, Function function);
+  void decorateScenario(String name, Function function);
+}
+
+class PlainExecutionDecorator implements ExecutionDecorator {
+  @override
+  void decorateGroup(String name, Function function) {
+    function();
+  }
+
+  @override
+  void decorateScenario(String name, Function function) {
+    function();
+  }
+}
+
+class TestExecutionDecorator implements ExecutionDecorator {
+  @override
+  void decorateGroup(String name, Function function) {
+    group(name, () { function(); });
+  }
+
+  @override
+  void decorateScenario(String name, Function function) {
+    test(name, () { function(); });
+  }
+}
 
 abstract class Executable {
   String name;
@@ -25,7 +58,14 @@ abstract class FeatureContent extends Executable {
 abstract class ContainsExecutables<T extends Executable> extends Executable {
   List<T> executables = [];
   ContainsExecutables(super.name);
+  @override
   void run() {
+    decorateGroup(name, () { executeChildren(); });
+  }
+  void decorateGroup(String name, Function function) {
+    executionDecorator.decorateGroup(name, function);
+  }
+  void executeChildren() {
     executables.forEach((executable) => executable.run());
   }
 }
@@ -67,11 +107,16 @@ class Rule extends ContainsExecutables<Scenario> implements FeatureContent {
 
 class Scenario extends ContainsExecutables<Step> implements FeatureContent {
   Scenario(super.name);
+  @override
+  void decorateGroup(String name, Function function) {
+    executionDecorator.decorateScenario(name, function);
+  }
 }
 
 class Step extends Executable {
   String prefix;
   Step(this.prefix, super.name);
+  @override
   void run() {
     var stepFunction = stepDefinitions[name];
     if (stepFunction == null) throw UndefinedStepException(this);
