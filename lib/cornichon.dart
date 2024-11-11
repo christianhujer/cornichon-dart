@@ -123,7 +123,7 @@ class Feature extends ContainsExecutables<RuleOrScenario> implements HasBackgrou
       } else if (line.startsWith("Background:")) {
         currentBackgroundOrScenario = (currentFeatureOrRule as HasBackground).background = Background();
       } else if (line.startsWith("Scenario:")) {
-        var scenario = Scenario(line.substring(10).trim());
+        var scenario = Scenario(line.substring(9).trim());
         currentBackgroundOrScenario = scenario;
         scenario.executables.addAll(currentFeature!.background.executables);
         if (currentRule != null) {

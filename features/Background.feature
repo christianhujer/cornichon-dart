@@ -2,6 +2,9 @@ Feature: Background
   Background:
     Given feature background
 
+  Scenario: Scenario outside Rule
+    When scenario step
+
   Rule: Some Rule
     Background:
       Given rule background

@@ -39,6 +39,6 @@ void main() {
   test('Runs the background of each rule and scenario', () {
     var features = Feature.parse('features/Background.feature');
     Feature.runFeatures(features);
-    expect(stepsExecuted, ['feature background', 'rule background', 'scenario step', 'feature background', 'rule background', 'scenario step']);
+    expect(stepsExecuted, ['feature background', 'scenario step', 'feature background', 'rule background', 'scenario step', 'feature background', 'rule background', 'scenario step']);
   });
 }
