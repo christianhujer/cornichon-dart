@@ -4,16 +4,17 @@
 * [x] Features
 * [x] Scenarios
 * [x] Steps (Given, When, Then, And, But)
-* [ ] Backgrounds
+* [x] Backgrounds
 * [x] Rules
-* [ ] Step arguments
-* [ ] Regular Expressions
+* [x] Step arguments
+* [x] Regular Expressions
+* [ ] Templates (`{string}` instead of `"(.*?)"`)
 * [ ] Multiline String arguments
 * [ ] Table arguments
 * [ ] Scenario Outlines / Templates / Examples
 * [ ] Runner Framework
 * [ ] Standalone Runner implementation
-* [ ] Dart Test-based Runner implementation using group() and test()
+* [x] Dart Test-based Runner implementation using group() and test()
 * [ ] Support other languages than English
 
 ## Full
