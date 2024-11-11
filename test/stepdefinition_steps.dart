@@ -1,6 +1,7 @@
 import 'package:cornichon_dart/cornichon.dart';
 
 List<String> stepsExecuted = [];
+List<String> stepArguments = [];
 
 void defineStepDefinitionSteps() {
   given('I have a step', () {
@@ -27,5 +28,11 @@ void defineStepDefinitionSteps() {
   });
   when('scenario step', () {
     stepsExecuted.add('scenario step');
+  });
+
+  given(r'I have "(\w+)" and "(\w+)" and "(\w+)"', (arg1, arg2, arg3) {
+    stepArguments.add(arg1);
+    stepArguments.add(arg2);
+    stepArguments.add(arg3);
   });
 }

@@ -179,9 +179,11 @@ class Step extends Executable {
   void run() {
     for (var key in stepDefinitions.keys) {
       var regex = RegExp(key);
-      if (regex.hasMatch('^${name}\$')) {
+      var match = regex.firstMatch('^${name}\$');
+      if (match != null) {
+        var args = match.groups(List.generate(match.groupCount, (index) => index + 1));
         Function stepFunction = stepDefinitions[key]!;
-        Function.apply(stepFunction, []);
+        Function.apply(stepFunction, args);
         return;
       }
     }

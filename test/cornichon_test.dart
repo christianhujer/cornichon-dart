@@ -7,6 +7,7 @@ void main() {
   setUp(() {
     executionDecorator = PlainExecutionDecorator();
     stepsExecuted = [];
+    stepArguments = [];
   });
 
   test('single step', () {
@@ -41,4 +42,11 @@ void main() {
     Feature.runFeatures(features);
     expect(stepsExecuted, ['feature background', 'scenario step', 'feature background', 'rule background', 'scenario step', 'feature background', 'rule background', 'scenario step']);
   });
+
+  test('steps can have arguments', () {
+    var features = Feature.parse('features/StepArguments.feature');
+    Feature.runFeatures(features);
+    expect(stepArguments, ['foo', 'bar', 'buzz']);
+  });
+
 }
