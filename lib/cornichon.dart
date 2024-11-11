@@ -109,7 +109,6 @@ class Feature extends ContainsExecutables<RuleOrScenario> implements HasBackgrou
     Rule? currentRule;
     File(path).readAsLinesSync().forEach((line) {
       line = line.trim();
-      print(line);
       if (line.startsWith("Feature:")) {
         currentFeature = Feature(line.substring(9).trim());
         currentFeatureOrRule = currentFeature;
