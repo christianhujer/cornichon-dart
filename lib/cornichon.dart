@@ -173,7 +173,7 @@ class Step extends Executable {
   void run() {
     var stepFunction = stepDefinitions[name];
     if (stepFunction == null) throw UndefinedStepException(this);
-    stepFunction();
+    Function.apply(stepFunction, []);
   }
 }
 
