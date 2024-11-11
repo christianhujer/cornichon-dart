@@ -199,7 +199,7 @@ class UndefinedStepException implements Exception {
   """
   Undefined step: ${step.name}.
   You can add this step with the following code:
-  ${step.prefix.toLowerCase()}("${step.name}", () {
+  ${step.prefix.toLowerCase()}("${step.name.replaceAll('\"', r'\"')}", () {
     throw PendingException();
   });
   """;
