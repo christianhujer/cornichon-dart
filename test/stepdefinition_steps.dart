@@ -18,4 +18,14 @@ void defineStepDefinitionSteps() {
   but('I should also see that result', () {
     stepsExecuted.add('but');
   });
+
+  given('feature background', () {
+    stepsExecuted.add('feature background');
+  });
+  given('rule background', () {
+    stepsExecuted.add('rule background');
+  });
+  when('scenario step', () {
+    stepsExecuted.add('scenario step');
+  });
 }

@@ -1,0 +1,30 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface HasSteps
+
+interface HasBackground
+
+class Feature implements HasBackground
+
+class Rule implements HasBackground
+
+class Background implements HasSteps
+
+class Scenario implements HasSteps
+
+class Step
+
+HasBackground o-- Background
+
+HasSteps o-- Step
+
+Feature o-- "?" Background
+Feature o-- Rule
+Feature o-- "*" Scenario
+Rule o-- "?" Background
+Rule o-- "*" Scenario
+Background o-- Step
+Scenario o-- Step
+
+@enduml
