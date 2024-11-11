@@ -4,6 +4,16 @@ import 'package:test/test.dart';
 
 Map<String, Function> stepDefinitions = {};
 
+Function? getStepFunction(String name) {
+  for (var key in stepDefinitions.keys) {
+    var regex = RegExp(key);
+    if (regex.hasMatch('^${name}\$')) {
+      return stepDefinitions[key];
+    }
+  }
+  return null;
+}
+
 void defineStep(String step, Function function) {
   stepDefinitions[step] = function;
 }
@@ -99,6 +109,7 @@ abstract class ContainsExecutables<T extends Executable> extends Executable {
 class Feature extends ContainsExecutables<RuleOrScenario> implements HasBackground, FeatureOrRule<RuleOrScenario> {
   @override
   Background background = Background();
+
   Feature(super.name);
 
   static List<Feature> parse(String path) {
@@ -151,7 +162,9 @@ class Feature extends ContainsExecutables<RuleOrScenario> implements HasBackgrou
 
 class Rule extends ContainsExecutables<Scenario> implements HasBackground, RuleOrScenario, FeatureOrRule<Scenario> {
   Background background = Background();
+
   Rule(super.name);
+
   @override
   void runBackground() {
     background.run();
@@ -160,6 +173,7 @@ class Rule extends ContainsExecutables<Scenario> implements HasBackground, RuleO
 
 class Scenario extends HasSteps implements BackgroundOrScenario, RuleOrScenario {
   Scenario(super.name);
+
   @override
   void decorateGroup(String name, Function function) {
     executionDecorator.decorateScenario(name, function);
@@ -168,10 +182,12 @@ class Scenario extends HasSteps implements BackgroundOrScenario, RuleOrScenario 
 
 class Step extends Executable {
   String prefix;
+
   Step(this.prefix, super.name);
+
   @override
   void run() {
-    var stepFunction = stepDefinitions[name];
+    var stepFunction = getStepFunction(name);
     if (stepFunction == null) throw UndefinedStepException(this);
     Function.apply(stepFunction, []);
   }
