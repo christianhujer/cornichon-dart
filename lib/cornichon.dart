@@ -4,16 +4,6 @@ import 'package:test/test.dart';
 
 Map<String, Function> stepDefinitions = {};
 
-Function? getStepFunction(String name) {
-  for (var key in stepDefinitions.keys) {
-    var regex = RegExp(key);
-    if (regex.hasMatch('^${name}\$')) {
-      return stepDefinitions[key];
-    }
-  }
-  return null;
-}
-
 void defineStep(String step, Function function) {
   stepDefinitions[step] = function;
 }
@@ -187,9 +177,15 @@ class Step extends Executable {
 
   @override
   void run() {
-    var stepFunction = getStepFunction(name);
-    if (stepFunction == null) throw UndefinedStepException(this);
-    Function.apply(stepFunction, []);
+    for (var key in stepDefinitions.keys) {
+      var regex = RegExp(key);
+      if (regex.hasMatch('^${name}\$')) {
+        Function stepFunction = stepDefinitions[key]!;
+        Function.apply(stepFunction, []);
+        return;
+      }
+    }
+    throw UndefinedStepException(this);
   }
 }
 
