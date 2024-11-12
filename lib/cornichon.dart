@@ -179,7 +179,7 @@ class Step extends Executable {
   void run() {
     for (var key in stepDefinitions.keys) {
       var regex = RegExp(key);
-      var match = regex.firstMatch('^${name}\$');
+      var match = regex.firstMatch(name);
       if (match != null) {
         var args = match.groups(List.generate(match.groupCount, (index) => index + 1));
         Function stepFunction = stepDefinitions[key]!;
@@ -201,7 +201,7 @@ class UndefinedStepException implements Exception {
   """
   Undefined step: ${step.name}.
   You can add this step with the following code:
-  ${step.prefix.toLowerCase()}("${step.name.replaceAll('\"', r'\"')}", () {
+  ${step.prefix.toLowerCase()}("^${step.name.replaceAll('\"', r'\"')}\$", () {
     throw PendingException();
   });
   """;
