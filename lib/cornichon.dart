@@ -197,14 +197,13 @@ class UndefinedStepException implements Exception {
   UndefinedStepException(this.step);
 
   @override
-  String toString() =>
-  """
-  Undefined step: ${step.name}.
-  You can add this step with the following code:
-  ${step.prefix.toLowerCase()}("^${step.name.replaceAll('\"', r'\"')}\$", () {
-    throw PendingException();
-  });
-  """;
+  String toString() => """
+Undefined step: ${step.name}.
+You can add this step with the following code:
+${step.prefix.toLowerCase()}(r"^${step.name.replaceAll('\"', r'\"')}\$", () {
+  throw PendingException();
+});
+""";
 }
 
 class PendingException implements Exception {

@@ -34,7 +34,16 @@ void main() {
 
   test('throws an exception with a good message for an undefined step', () {
     var features = Feature.parse('features/UndefinedStep.feature');
-    expect(() => Feature.runFeatures(features), throwsA(isA<UndefinedStepException>()));
+    expect(() => Feature.runFeatures(features), throwsA(allOf(
+        isA<UndefinedStepException>(),
+        predicate((e) => e.toString().contains(r"""
+Undefined step: this step is not defined.
+You can add this step with the following code:
+given(r"^this step is not defined$", () {
+  throw PendingException();
+});
+""")),
+    )));
   });
 
   test('Runs the background of each rule and scenario', () {
